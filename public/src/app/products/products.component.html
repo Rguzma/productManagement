@@ -1,0 +1,26 @@
+
+<router-outlet></router-outlet>
+<div>
+    <h2>Producs List</h2>
+    
+        <div *ngFor = "let list of allProducts">
+            <fieldset>
+                    <div>
+                  
+                    <img  src="{{list.productImage}}" alt="product image" width="500" height="auto">
+                    <p> {{list.productTitle}}</p>
+                    <p>{{list.productPrice}}</p>
+                
+                    </div>
+                    <div>
+                        <a  [routerLink]="['edit' , list._id]"><button>Edit</button></a>
+                        <button (click)=deleteProducts([list._id])>Delete</button>
+                    </div>
+            
+            </fieldset>
+        </div>
+
+
+    
+</div>
+<router-outlet></router-outlet>

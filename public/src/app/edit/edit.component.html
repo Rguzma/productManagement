@@ -1,0 +1,32 @@
+
+
+<div>
+<h4>Add a new Product</h4>
+<form (submit)=createProduct($event)>
+    <div>
+        <label for="productTitle">
+            Title:
+        </label>
+        <input type="text" id="productTitle" name="productTitle" [(ngModel)]="newProduct.productTitle">
+    </div>
+    <div>
+        <label for="productPrice">
+            Price:
+        </label>
+        <input type="number" id="productPrice" name="productPrice" [(ngModel)]="newProduct.productPrice">
+    </div>
+    <div>
+        <label for="productImage">
+            Image link:
+        </label>
+        <input type="text" id="productImage" name="productImage" [(ngModel)]="newProduct.productImage">
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</div>
+    <!-- Esta parte es para comprobar que el formeste editando nuestro componente -->
+    <div>
+        {{errorMessage}}
+    </div>
+    {{newProduct.productName }}
+    <!-- finaliza two-way binding-->

@@ -1,0 +1,50 @@
+const mongoose = require( 'mongoose' );
+const productsSchema = new mongoose.Schema({
+    productTitle: {
+        type: String,
+        required: true,
+        minlength:4
+        
+    },
+    productPrice:{
+        type:Number,
+        required:true
+    },
+    productImage:{
+        type: String
+    },
+    
+},{
+            timestamps:true
+     
+    
+});
+
+const Products = mongoose.model('products', productsSchema);
+
+const ProductsModel = {
+    save: function(createdProducts){
+        return Products.create(createdProducts);
+    },
+    findAll: function(){
+        return Products.find();
+    },
+    findProducts: function(id){
+        console.log("lo que busca la funcion "+Products.findById(id));
+        return Products.findById(id);
+    },
+    findandUpdate: function(updatedProducts, id){
+        // console.log("break the object: "+updateMongoose.mName+" "+updateMongoose.age);
+        return Products.findByIdAndUpdate({_id:id}, {$set: {productTitle: updatedProducts.productTitle, productPrice: updatedProducts.productPrice, productImage: updatedProducts.productImage}});
+    },
+
+    delete: function(id){
+        return Products.findOneAndRemove({_id:id});
+    }
+
+}
+
+
+module.exports = {
+    ProductsModel
+};

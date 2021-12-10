@@ -1,0 +1,74 @@
+const {ProductsModel} = require( '../models/productsModel' );
+
+
+const ProductsController ={
+    allProducts: function(request, response){
+        ProductsModel.findAll()
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+    },
+
+
+    seeProduct: function(request, response){
+        console.log("The mongoose id requested is: ", request.params);
+        console.log("este es el request body: ",request.params._id)
+        let id = request.params._id;
+        console.log("id llega al controlador?", id);
+        ProductsModel.findProducts(id)
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+        
+    },
+
+    createProduct: function(request, response){
+        // console.log("The mongoose id requested is: ", request.params._id);
+        console.log("llega el request: ",request.body)
+        let productTitle = request.body.productTitle;
+        let productPrice = request.body.productPrice;
+        let productImage = request.body.productImage;
+
+        createdProducts = {
+            productTitle,
+            productPrice,
+            productImage
+        };
+        console.log("informacion que sera guardada: ",createdProducts)
+        ProductsModel.save(createdProducts)
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+        
+    },
+
+    updateProducts: function(request, response){
+        let id = request.params._id;
+        let productTitle = request.body.productTitle;
+        let productPrice = request.body.productPrice;
+        let productImage = request.body.productImage;
+        updatedProducts = {
+            productTitle,
+            productPrice,
+            productImage
+        };
+        console.log(id);
+        ProductsModel.findandUpdate(updatedProducts, id)
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+
+    },
+
+    removeProducts: function(request, response){
+        // console.log("The mongoose id requested is: ", request.params._id);
+        let id = request.params._id;
+        ProductsModel.delete(id)
+        .then(data => response.json(data))
+        .catch(err => response.json(err));
+        
+    },
+
+
+}
+
+
+module.exports = {
+    ProductsController
+};
